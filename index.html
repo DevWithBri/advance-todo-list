@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Todo List</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Advanced Todo List</h1>
+        
+        <form id="todoForm">
+            <div class="form-group">
+                <input type="text" id="todoInput" placeholder="What needs to be done?" required>
+            </div>
+
+            <div class="input-row">
+                <select id="priority">
+                    <option value="low">Low Priority</option>
+                    <option value="medium" selected>Medium Priority</option>
+                    <option value="high">High Priority</option>
+                </select>
+
+                <select id="category">
+                    <option value="">Select Category</option>
+                    <option value="Personal">Personal</option>
+                    <option value="Work">Work</option>
+                    <option value="Shopping">Shopping</option>
+                    <option value="Health">Health</option>
+                </select>
+            </div>
+
+            <div class="input-row">
+                <input type="date" id="dueDate">
+                <input type="datetime-local" id="reminder">
+            </div>
+
+            <div class="form-group">
+                <input type="text" id="tags" placeholder="Add tags (comma-separated)">
+            </div>
+
+            <div class="form-group">
+                <div class="input-row">
+                    <input type="text" id="subtaskInput" placeholder="Add subtask">
+                    <button type="button" id="addSubtask" class="btn-secondary">Add Subtask</button>
+                </div>
+                <div id="subtaskList" class="subtasks"></div>
+            </div>
+
+            <div class="form-group">
+                <textarea id="notes" rows="3" placeholder="Add notes..."></textarea>
+            </div>
+
+            <button type="submit" class="btn-primary">Add Task</button>
+        </form>
+
+        <div class="filters">
+            <input type="text" id="search" placeholder="Search todos...">
+            <select id="filterStatus">
+                <option value="all">All</option>
+                <option value="active">Active</option>
+                <option value="completed">Completed</option>
+                <option value="archived">Archived</option>
+                <option value="overdue">Overdue</option>
+            </select>
+            <select id="sortBy">
+                <option value="dueDate">Sort by Due Date</option>
+                <option value="priority">Sort by Priority</option>
+                <option value="created">Sort by Created Date</option>
+            </select>
+            <button id="sortOrder" class="btn-secondary">↑</button>
+        </div>
+
+        <div id="todoList" class="todo-list"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
