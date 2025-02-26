@@ -15,78 +15,199 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div class="container">
-      <h1>Advanced Todo List</h1>
-
-      <form id="todoForm">
-        <div class="form-group">
-          <input
-            type="text"
-            id="todoInput"
-            placeholder="What needs to be done?"
-            required
-          />
+    <div class="app-container">
+      <!-- Left Panel -->
+      <aside class="settings-panel">
+        <div class="app-branding">
+          <h1>Advanced Todo</h1>
         </div>
+        
+        <nav class="settings-nav">
+          <div class="nav-section">
+            <h3>Views</h3>
+            <ul>
+              <li class="nav-item active">
+                <span class="nav-icon">📋</span>
+                All Tasks
+              </li>
+              <li class="nav-item">
+                <span class="nav-icon">⭐</span>
+                Important
+              </li>
+              <li class="nav-item">
+                <span class="nav-icon">📅</span>
+                Planned
+              </li>
+              <li class="nav-item">
+                <span class="nav-icon">📌</span>
+                Today
+              </li>
+            </ul>
+          </div>
 
-        <div class="input-row">
-          <select id="priority">
-            <option value="low">Low Priority</option>
-            <option value="medium" selected>Medium Priority</option>
-            <option value="high">High Priority</option>
-          </select>
+          <div class="nav-section">
+            <h3>Categories</h3>
+            <ul id="categoryList">
+              <li class="nav-item">
+                <span class="nav-icon category-icon personal">👤</span>
+                Personal
+              </li>
+              <li class="nav-item">
+                <span class="nav-icon category-icon work">💼</span>
+                Work
+              </li>
+              <li class="nav-item">
+                <span class="nav-icon category-icon shopping">🛒</span>
+                Shopping
+              </li>
+              <li class="nav-item">
+                <span class="nav-icon category-icon health">❤️</span>
+                Health
+              </li>
+            </ul>
+          </div>
 
-          <select id="category">
-            <option value="">Select Category</option>
-            <option value="Personal">Personal</option>
-            <option value="Work">Work</option>
-            <option value="Shopping">Shopping</option>
-            <option value="Health">Health</option>
-          </select>
-        </div>
+          <div class="nav-section">
+            <h3>Settings</h3>
+            <ul>
+              <li class="nav-item">
+                <span class="nav-icon">🎨</span>
+                Theme
+                <select id="themeSelect" class="theme-select">
+                  <option value="light">Light</option>
+                  <option value="dark">Dark</option>
+                  <option value="system">System</option>
+                </select>
+              </li>
+              <li class="nav-item">
+                <span class="nav-icon">🔔</span>
+                Notifications
+                <label class="switch">
+                  <input type="checkbox" id="notificationToggle" checked>
+                  <span class="slider"></span>
+                </label>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </aside>
 
-        <div class="input-row">
-          <input type="date" id="dueDate" />
-          <input type="datetime-local" id="reminder" />
-        </div>
-
-        <div class="form-group">
-          <input
-            type="text"
-            id="tags"
-            placeholder="Add tags (comma-separated)"
-          />
-        </div>
-
-        <div class="form-group">
-          <div class="input-row">
-            <input type="text" id="subtaskInput" placeholder="Add subtask" />
-            <button type="button" id="addSubtask" class="btn-secondary">
-              Add Subtask
+      <!-- Right Panel -->
+      <main class="main-panel">
+        <header class="main-header">
+          <div class="view-title">
+            <h2>All Tasks</h2>
+            <p class="task-count">5 tasks</p>
+          </div>
+          <div class="header-actions">
+            <div class="search-container">
+              <input type="text" id="search" placeholder="Search tasks..." />
+              <span class="search-icon">🔍</span>
+            </div>
+            <button id="viewToggle" class="view-toggle">
+              <span class="icon">📊</span>
             </button>
           </div>
-          <div id="subtaskList" class="subtasks"></div>
-        </div>
+        </header>
 
-        <div class="form-group">
-          <textarea id="notes" rows="3" placeholder="Add notes..."></textarea>
-        </div>
+        <div class="content-area">
+          <!-- Quick Add Task -->
+          <div class="quick-add">
+            <button class="quick-add-btn">
+              <span class="plus-icon">+</span>
+              Add a task
+            </button>
+          </div>
 
-        <button type="submit" class="btn-primary">Add Task</button>
-      </form>
+          <!-- Existing form wrapped in a modal -->
+          <div id="taskModal" class="modal">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h3>Add New Task</h3>
+                <button class="close-modal">&times;</button>
+              </div>
+              <form id="todoForm">
+                <div class="form-group">
+                  <input
+                    type="text"
+                    id="todoInput"
+                    placeholder="What needs to be done?"
+                    required
+                  />
+                </div>
 
-      <div class="filters">
-        <input type="text" id="search" placeholder="Search todos..." />
-        <select id="filterStatus">
-          <option value="all">All</option>
-          <option value="active">Active</option>
-          <option value="completed">Completed</option>
-          <option value="archived">Archived</option>
-          <option value="overdue">Overdue</option>
-        </select>
-        <select id="sortBy">
-          <option value="dueDate">Sort by Due Date</option>
-          <option value="priority">Sort by Priority</option>
-          <option value="created">Sort by Created Date</option>
+                <div class="input-row">
+                  <select id="priority">
+                    <option value="low">Low Priority</option>
+                    <option value="medium" selected>Medium Priority</option>
+                    <option value="high">High Priority</option>
+                  </select>
+
+                  <select id="category">
+                    <option value="">Select Category</option>
+                    <option value="Personal">Personal</option>
+                    <option value="Work">Work</option>
+                    <option value="Shopping">Shopping</option>
+                    <option value="Health">Health</option>
+                  </select>
+                </div>
+
+                <div class="input-row">
+                  <input type="date" id="dueDate" />
+                  <input type="datetime-local" id="reminder" />
+                </div>
+
+                <div class="form-group">
+                  <input
+                    type="text"
+                    id="tags"
+                    placeholder="Add tags (comma-separated)"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <div class="input-row">
+                    <input type="text" id="subtaskInput" placeholder="Add subtask" />
+                    <button type="button" id="addSubtask" class="btn-secondary">
+                      Add Subtask
+                    </button>
+                  </div>
+                  <div id="subtaskList" class="subtasks"></div>
+                </div>
+
+                <div class="form-group">
+                  <textarea id="notes" rows="3" placeholder="Add notes..."></textarea>
+                </div>
+
+                <button type="submit" class="btn-primary">Add Task</button>
+              </form>
+            </div>
+          </div>
+
+          <!-- Task List Container -->
+          <div class="task-list-container">
+            <div class="filters">
+              <input type="text" id="search" placeholder="Search todos..." />
+              <select id="filterStatus">
+                <option value="all">All</option>
+                <option value="active">Active</option>
+                <option value="completed">Completed</option>
+                <option value="archived">Archived</option>
+                <option value="overdue">Overdue</option>
+              </select>
+              <select id="sortBy">
+                <option value="dueDate">Sort by Due Date</option>
+                <option value="priority">Sort by Priority</option>
+                <option value="created">Sort by Created Date</option>
+              </select>
+              <button id="sortOrder" class="btn-secondary">↑</button>
+            </div>
+            <div id="todoList" class="todo-list">
+              <!-- Tasks will be rendered here -->
+            </div>
+          <div class="input-row">
+            <button type="button" id="addSubtask" class="btn-secondary">
+      </main>
         </select>
         <button id="sortOrder" class="btn-secondary">↑</button>
       </div>
